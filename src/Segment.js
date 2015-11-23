@@ -17,7 +17,7 @@
      Andriy Syrovenko, Sergey Popov
 
 ************************************************************************ */
-
+define([], function() {
 /**
  * This class represents a QR Code Segment, i.e. a sequence of input data
  * encoded according to the rules of one encoding mode. Only Numeric,
@@ -248,3 +248,5 @@ Segment.prototype.encode = function(buffer) {
       break;
   }
 };
+
+});

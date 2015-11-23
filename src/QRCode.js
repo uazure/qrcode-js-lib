@@ -17,6 +17,8 @@
      Andriy Syrovenko, Sergey Popov
 
 ************************************************************************ */
+define(['BitBuffer', 'Segment'], function(BitBuffer, Segment) {
+
 
 /**
  * A QR Code generator class.
@@ -38,9 +40,10 @@
   *
   */
 
-function QRCode (str, ecLevel) {
+function QRCode (canvasElement, str, scale, ecLevel) {
     var x, i;
-
+    this.canvasElement = canvasElement;
+    this.ctx = this.canvasElement.getContext('2d');
     this.__ecLevel = 0;
     this.__symbol = null;
     this.__symbolVersion = null;
@@ -53,6 +56,7 @@ function QRCode (str, ecLevel) {
     if(ecLevel) {
       this.setECLevel(ecLevel);
     }
+    this.setScale(scale || 2); // set default scale of 2;
 
     if(!this.__rs_exp_tbl) {
       /*
@@ -329,6 +333,16 @@ QRCode.prototype.clear = function() {
   this.__segments = new Array();
   this.__symbol = null;
 };
+QRCode.prototype.encode = function(text) {
+    this.clear();
+    this.addSegment(text);
+    this.setCanvasSize();
+    this.draw(this.ctx);
+}
+QRCode.prototype.setCanvasSize = function() {
+    var size = this.getImageSize();
+    this.canvasElement.width = this.canvasElement.height = size;
+}
 /**
  * Sets error correction level.
  *
@@ -370,16 +384,24 @@ QRCode.prototype.getSymbolSize = function() {
 /**
  * Returns QR symbol image size in pixels. Image size is calculated by
  * adding 2x4 margin modules to {@link #getSymbolSize symbol size} and then
- * multiplying the result by a scale factor.
+ * multiplying the result by a factor.
  *
  * @param scale {Integer?2} Scale factor.
  *
  * @return {Integer} A size of each side of the image in pixels.
  */
 QRCode.prototype.getImageSize = function(scale) {
-  scale = scale || 2;
+  scale = scale || this.scale;
   return scale * (this.getSymbolSize() + 8); // + 2x margins
 };
+
+/**
+ * Sets pixel scale.
+ * @param scale {Integer?2} Scale factor
+*/
+QRCode.prototype.setScale = function(scale) {
+    this.scale = scale;
+}
 
 /**
  * Draws QR symbol image on the HTML5 canvas.
@@ -406,7 +428,7 @@ QRCode.prototype.draw = function(ctx, options) {
     options = {};
   }
 
-  options.scale = options.scale || 2;
+  options.scale = options.scale || this.scale;
   options.left = options.left || 0;
   options.top = options.top || 0;
   options.light = options.light || "#FFF";
@@ -962,3 +984,5 @@ QRCode.prototype.__calculatePenaltyScore = function(symbol) {
 
   return score;
 };
+
+});

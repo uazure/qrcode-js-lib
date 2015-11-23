@@ -4,11 +4,9 @@ app.controller('demoController', ['$scope', function($scope) {
     $scope.model = ''
 
     var ctx = document.getElementById('canvas').getContext('2d');
-    var qr = new QRCode('');
+    var qr = new QRCode(document.getElementById('canvas'), '', 8);
     $scope.$watch('model', function(newval) {
         console.log('newval', newval);
-        qr.clear();
-        qr.addSegment(newval);
-        qr.draw(ctx);
+        qr.encode(newval);
     })
 }]);

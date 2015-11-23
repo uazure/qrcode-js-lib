@@ -20,6 +20,7 @@
 
 // Bit buffer implementaion
 "use strict";
+define([], function() {
 
 function BitBuffer(len) {
     // if(len) {
@@ -85,3 +86,5 @@ BitBuffer.prototype.getLength = function() {
 BitBuffer.prototype.getDataArray = function() {
   return this.__data;
 }
+
+});
