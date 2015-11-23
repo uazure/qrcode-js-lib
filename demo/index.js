@@ -2,11 +2,10 @@ var app = angular.module('app', []);
 
 app.controller('demoController', ['$scope', function($scope) {
     $scope.model = ''
-
-    var ctx = document.getElementById('canvas').getContext('2d');
-    var qr = new QRCode(document.getElementById('canvas'), '', 8);
+    // instantiate QRCode library. Specify canvasElement (required), string to encode and pixel scale
+    var qr = new QRCodeLib(document.getElementById('canvas'), '', 8);
+    // on input change update qr code with new value
     $scope.$watch('model', function(newval) {
-        console.log('newval', newval);
         qr.encode(newval);
     })
 }]);

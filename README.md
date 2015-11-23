@@ -1,6 +1,3 @@
-# WARNING
-This code is not yet usable.
-
 # qrcode-js-lib
 JavaScript QR Code Generator Library.
 Solely based on the original work by Andriy Syrovenko
