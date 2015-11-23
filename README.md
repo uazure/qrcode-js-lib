@@ -1,8 +1,9 @@
-# qx-qrcode
-JavaScript (qooxdoo) QR Code Generator Library
+# qrcode-lib
+JavaScript QR Code Generator Library.
+Solely based on the original work by Andriy Syrovenko
+https://github.com/andriy-s/qx-qrcode
 
-Similarly to the qooxdoo itself, this work is dual-licensed under the terms
-of either
+This work is dual-licensed under the terms of either
 
     * GNU Lesser General Public License (LGPL) 2.1
 
