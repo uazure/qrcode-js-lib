@@ -452,11 +452,11 @@ QRCode.prototype.__encodeSymbol = function() {
       this.__segments[i].setVersion(ver);
       len += this.__segments[i].getBitStreamLength();
     }
-    dataBits = 8 * qrcode.QRCode.__codeProps[this.__ecLevel][ver-1][0];
+    dataBits = 8 * this.__codeProps[this.__ecLevel][ver-1][0];
     if(len <= dataBits) {
-      dataBytes = qrcode.QRCode.__codeProps[this.__ecLevel][ver-1][0];
-      blockECBytes = qrcode.QRCode.__codeProps[this.__ecLevel][ver-1][1];
-      blockCnt = qrcode.QRCode.__codeProps[this.__ecLevel][ver-1][2];
+      dataBytes = this.__codeProps[this.__ecLevel][ver-1][0];
+      blockECBytes = this.__codeProps[this.__ecLevel][ver-1][1];
+      blockCnt = this.__codeProps[this.__ecLevel][ver-1][2];
       break;
     }
   }
@@ -469,7 +469,7 @@ QRCode.prototype.__encodeSymbol = function() {
   this.__symbolSize = 17 + 4 * ver;
 
   // Converting segments' data into a bit stream
-  bitBuffer = new qrcode.BitBuffer(dataBits);
+  bitBuffer = new BitBuffer(dataBits);
   for(i = 0; i < this.__segments.length; i++) {
     this.__segments[i].encode(bitBuffer);
   }
@@ -589,7 +589,7 @@ QRCode.prototype.__buildSymbol = function(message, maskPattern) {
 
   // Adding alignment patterns
   if(this.__symbolVersion >= 2) {
-    p = qrcode.QRCode.__alignPatternPositions[this.__symbolVersion - 2];
+    p = this.__alignPatternPositions[this.__symbolVersion - 2];
     for(x = 0; x < p.length; x++) {
       for(y = 0; y < p.length; y++) {
         if(typeof symbol[(p[y] * this.__symbolSize + p[x])] === 'undefined') {
@@ -606,7 +606,7 @@ QRCode.prototype.__buildSymbol = function(message, maskPattern) {
   }
 
   // Placing data modules
-  maskFunc = qrcode.QRCode.__maskFunctions[maskPattern];
+  maskFunc = this.__maskFunctions[maskPattern];
   bit = 0x80;
   x = y = this.__symbolSize - 1;
   dir = -1;
