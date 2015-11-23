@@ -10,6 +10,7 @@ https://github.com/andriy-s/qx-qrcode
 
 See usage example on demo page: http://uazure.github.io/qrcode-js-lib/demo/
 
+## License:
 This work is dual-licensed under the terms of either
 
     * GNU Lesser General Public License (LGPL) 2.1
